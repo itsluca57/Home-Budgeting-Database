@@ -1,5 +1,5 @@
-::::::: titlepage
-![image](./logo_universita.png){width="70%"}\
+::: titlepage
+![image](logo_universita.png){width="70%"}\
 [Università degli Studi di Padova]{.smallcaps}\
 Dipartimento di Matematica\
 Corso di Laurea in Informatica\
@@ -15,22 +15,18 @@ Finanze Personali**\
 
 \
 
-:::: minipage
 ::: flushleft
 **Docente:**\
 Prof. Massimiliano de Leoni
 :::
-::::
 
-:::: minipage
 ::: flushright
 **Studente:**\
 Luca Cesco Bolla (Matr. 2138006)\
 :::
-::::
 
 Anno Accademico 2025/2026
-:::::::
+:::
 
 # Abstract
 
@@ -67,21 +63,21 @@ o e-mail per segnalare il rischio di sforamento del tetto di spesa.
 **Utente**. Rappresenta i soggetti registrati nel sistema che gestiscono
 i propri flussi finanziari. Per ciascun utente si devono memorizzare:
 
-- Codice univoco (ID) che distingue in modo univoco ogni utente.
+-   Codice univoco (ID) che distingue in modo univoco ogni utente.
 
-- Nome e Cognome dell'utente.
+-   Nome e Cognome dell'utente.
 
-- Indirizzo e-mail di contatto.
+-   Indirizzo e-mail di contatto.
 
 **Conto**. Rappresenta le disponibilità liquide e i rapporti finanziari
 sui quali vengono registrati i movimenti. Per ogni conto si devono
 memorizzare:
 
-- Codice univoco (ID) che distingue ogni conto.
+-   Codice univoco (ID) che distingue ogni conto.
 
-- Nome del conto (es. Contanti, Conto Principale).
+-   Nome del conto (es. Contanti, Conto Principale).
 
-- Saldo corrente presente sul conto.
+-   Saldo corrente presente sul conto.
 
 Per ogni associazione tra un utente e un conto (in particolare nei conti
 co-intestati), si deve memorizzare il relativo **livello di accesso**
@@ -90,66 +86,65 @@ che può essere Lettura, Modifica oppure Amministratore.
 Per i **Conti Corrente** bancari, oltre alle informazioni di base, si
 rende necessario memorizzare ulteriori dettagli relativi alla banca:
 
-- Codice IBAN.
+-   Codice IBAN.
 
-- Nome della Banca di riferimento.
+-   Nome della Banca di riferimento.
 
 **Transazione**. Rappresenta ogni singolo movimento finanziario
 registrato sui conti. Per ciascuna transazione si devono memorizzare:
 
-- Codice univoco (ID) della transazione.
+-   Codice univoco (ID) della transazione.
 
-- Nome o descrizione sintetica del movimento.
+-   Nome o descrizione sintetica del movimento.
 
-- Data e Ora di esecuzione.
+-   Data e Ora di esecuzione.
 
-- Importo e Tipologia dell'operazione (Entrata, Uscita, Trasferimento).
+-   Importo e Tipologia dell'operazione (Entrata, Uscita,
+    Trasferimento).
 
-- Se la transazione è ricorrente oppure no.
+-   Se la transazione è ricorrente oppure no.
 
 Nel caso in cui la transazione rappresenti un **Trasferimento** di fondi
 tra conti, oltre alle informazioni di base, si specifica:
 
-- Conto di destinazione verso cui è diretto il movimento.
+-   Conto di destinazione verso cui è diretto il movimento.
 
-- Commissione pagata.
+-   Commissione pagata.
 
 Qualora la transazione fosse **Ricorrente** nel tempo, oltre ai dati
 generali della transazione, si registrano:
 
-- Frequenza di ripetizione del movimento.
+-   Frequenza di ripetizione del movimento.
 
-- Data di fine della ricorrenza.
+-   Data di fine della ricorrenza.
 
 **Categoria**. Rappresenta la classificazione tematica utilizzata per
 catalogare le transazioni. Per ciascuna categoria si devono memorizzare:
 
-- Nome della categoria (es. Spesa, Stipendio, Trasporti).
+-   Nome della categoria (es. Spesa, Stipendio, Trasporti).
 
 **Budget**. Rappresenta la pianificazione del tetto massimo di spesa
 impostato su una specifica categoria. Per ogni budget si devono
 memorizzare:
 
-- Importo target massimo di spesa.
+-   Importo target massimo di spesa.
 
-- Frequenza temporale (settimanale, mensile o personalizzata).
+-   Frequenza temporale (settimanale, mensile o personalizzata).
 
-- Data Fine del periodo del budget.
+-   Data Fine del periodo del budget.
 
 **Avviso**. Rappresenta il meccanismo di notifica collegato al
 superamento della soglia di avviso impostata nel budget. Per ogni avviso
 si devono memorizzare:
 
-- Tipologia di invio della segnalazione (es. Notifica, Email).
+-   Tipologia di invio della segnalazione (es. Notifica, Email).
 
-- Soglia percentuale o monetaria di allarme.
+-   Soglia percentuale o monetaria di allarme.
 
 # Progettazione Concettuale
 
-<figure id="fig:schema_er" data-latex-placement="htbp">
-<img src="./Schema_ER.png" style="width:100.0%" />
-<figcaption>Schema E-R corrispondente ai requisiti.</figcaption>
-</figure>
+![Schema E-R corrispondente ai requisiti.](Schema_ER.png){#fig:schema_er
+width="100%"}
 
 Il diagramma Entity-Relationship (E-R) rappresentato in Figura
 [1](#fig:schema_er){reference-type="ref" reference="fig:schema_er"}
@@ -159,32 +154,32 @@ sistema di *Home Budgeting*.
 Nel modello individuiamo due gerarchie di specializzazione ed entità a
 identificazione esterna:
 
-- **Gerarchia dei Conti**: L'entità `CONTO` rappresenta la
-  generalizzazione di qualsiasi rapporto finanziario. Essa viene
-  specializzata nella sotto-entità `CONTO CORRENTE`, la quale ereditando
-  gli attributi generali (`ID`, `Nome`, `Saldo`), estende l'informazione
-  con i dati specifici relativi all'istituto bancario (`IBAN` e
-  `Nome Banca`). Si tratta di una gerarchia parziale ed esclusiva, in
-  quanto un conto può non essere un conto corrente (es. contanti) e non
-  può appartenere a più specializzazioni.
+-   **Gerarchia dei Conti**: L'entità `CONTO` rappresenta la
+    generalizzazione di qualsiasi rapporto finanziario. Essa viene
+    specializzata nella sotto-entità `CONTO CORRENTE`, la quale
+    ereditando gli attributi generali (`ID`, `Nome`, `Saldo`), estende
+    l'informazione con i dati specifici relativi all'istituto bancario
+    (`IBAN` e `Nome Banca`). Si tratta di una gerarchia parziale ed
+    esclusiva, in quanto un conto può non essere un conto corrente (es.
+    contanti) e non può appartenere a più specializzazioni.
 
-- **Gerarchia delle Transazioni**: L'entità `TRANSAZIONE` ammette due
-  specializzazioni non esclusive (sovrapponibili): `TRASFERIMENTO` e
-  `RICORRENTE`. La specializzazione `TRASFERIMENTO` modella i movimenti
-  di fondi collegandosi, tramite la relazione `INDIRIZZATO`, al conto di
-  destinazione e memorizzando la commissione applicata. La
-  specializzazione `RICORRENTE` memorizza i dettagli sulla
-  temporizzazione dei movimenti periodici (`Frequenza` e
-  `Fine Ricorrenza`).
+-   **Gerarchia delle Transazioni**: L'entità `TRANSAZIONE` ammette due
+    specializzazioni non esclusive (sovrapponibili): `TRASFERIMENTO` e
+    `RICORRENTE`. La specializzazione `TRASFERIMENTO` modella i
+    movimenti di fondi collegandosi, tramite la relazione `INDIRIZZATO`,
+    al conto di destinazione e memorizzando la commissione applicata. La
+    specializzazione `RICORRENTE` memorizza i dettagli sulla
+    temporizzazione dei movimenti periodici (`Frequenza` e
+    `Fine Ricorrenza`).
 
-- **Identificazione Esterna e Dipendenze**: L'entità `CATEGORIA` è
-  identificata esternamente dall'entità `UTENTE` mediante la relazione
-  `CREA`, garantendo che ogni categoria appartenga univocamente a un
-  determinato utente. L'entità `BUDGET` possiede un'identificazione
-  esterna mediante la relazione `LIMITA` (con `CATEGORIA`) indicante la
-  categoria dell'utente a cui il budget fa riferimento. Infine, l'entità
-  `AVVISO` è modellata come entità debole identificata totalmente
-  dall'entità `BUDGET` tramite la relazione `ATTIVA`.
+-   **Identificazione Esterna e Dipendenze**: L'entità `CATEGORIA` è
+    identificata esternamente dall'entità `UTENTE` mediante la relazione
+    `CREA`, garantendo che ogni categoria appartenga univocamente a un
+    determinato utente. L'entità `BUDGET` possiede un'identificazione
+    esterna mediante la relazione `LIMITA` (con `CATEGORIA`) indicante
+    la categoria dell'utente a cui il budget fa riferimento. Infine,
+    l'entità `AVVISO` è modellata come entità debole identificata
+    totalmente dall'entità `BUDGET` tramite la relazione `ATTIVA`.
 
 La Tabella [2](#tab:dizionario_er){reference-type="ref"
 reference="tab:dizionario_er"} riassume tutte le entità e le relazioni
@@ -283,11 +278,11 @@ dell'importo delle transazioni collegate al conto.
 
 Si considerano le seguenti due operazioni principali:
 
-- **Operazione 1 (100 al giorno)**: Inserimento di una nuova transazione
-  relativa a un determinato conto.
+-   **Operazione 1 (100 al giorno)**: Inserimento di una nuova
+    transazione relativa a un determinato conto.
 
-- **Operazione 2 (500 al giorno)**: Visualizzazione del saldo attuale di
-  un conto.
+-   **Operazione 2 (500 al giorno)**: Visualizzazione del saldo attuale
+    di un conto.
 
 Assumendo i seguenti volumi nella base di dati:
 
@@ -304,56 +299,56 @@ Si ipotizza una media di 50 transazioni registrate per ciascun conto
 
 **CON RIDONDANZA** Analizziamo prima il costo totale con ridondanza.
 
-- **Operazione 1**:
+-   **Operazione 1**:
 
-  ::: center
-     **Concetto**   **Costrutto**   **Accessi**   **Tipo**
-    -------------- --------------- ------------- ----------
-     TRANSAZIONE          E              1           S
-       EFFETTUA           R              1           S
-        CONTO             E              1           L
-        CONTO             E              1           S
+    ::: center
+       **Concetto**   **Costrutto**   **Accessi**   **Tipo**
+      -------------- --------------- ------------- ----------
+       TRANSAZIONE          E              1           S
+         EFFETTUA           R              1           S
+          CONTO             E              1           L
+          CONTO             E              1           S
 
-  $\times 100$
-  :::
+    $\times 100$
+    :::
 
-- **Operazione 2**:
+-   **Operazione 2**:
 
-  ::: center
-     **Concetto**   **Costrutto**   **Accessi**   **Tipo**
-    -------------- --------------- ------------- ----------
-        CONTO             E              1           L
+    ::: center
+       **Concetto**   **Costrutto**   **Accessi**   **Tipo**
+      -------------- --------------- ------------- ----------
+          CONTO             E              1           L
 
-  $\times 500$
-  :::
+    $\times 500$
+    :::
 
 Assumendo costo doppio per gli accessi in scrittura:
 $$\text{Costo Totale} = 100 \times (1 \times 1 + 3 \times 2) + 500 \times (1 \times 1) = 100 \times 7 + 500 \times 1 = 1200$$
 
 **SENZA RIDONDANZA** Analizziamo il costo totale senza ridondanza.
 
-- **Operazione 1**:
+-   **Operazione 1**:
 
-  ::: center
-     **Concetto**   **Costrutto**   **Accessi**   **Tipo**
-    -------------- --------------- ------------- ----------
-     TRANSAZIONE          E              1           S
-       EFFETTUA           R              1           S
+    ::: center
+       **Concetto**   **Costrutto**   **Accessi**   **Tipo**
+      -------------- --------------- ------------- ----------
+       TRANSAZIONE          E              1           S
+         EFFETTUA           R              1           S
 
-  $\times 100$
-  :::
+    $\times 100$
+    :::
 
-- **Operazione 2**:
+-   **Operazione 2**:
 
-  ::: center
-     **Concetto**   **Costrutto**   **Accessi**   **Tipo**
-    -------------- --------------- ------------- ----------
-        CONTO             E              1           L
-       EFFETTUA           R             50           L
-     TRANSAZIONE          E             50           L
+    ::: center
+       **Concetto**   **Costrutto**   **Accessi**   **Tipo**
+      -------------- --------------- ------------- ----------
+          CONTO             E              1           L
+         EFFETTUA           R             50           L
+       TRANSAZIONE          E             50           L
 
-  $\times 500$
-  :::
+    $\times 500$
+    :::
 
 Assumendo costo doppio per gli accessi in scrittura:
 $$\text{Costo Totale} = 100 \times (2 \times 2) + 500 \times (101 \times 1) = 100 \times 4 + 500 \times 101 = 400 + 50500 = 50900$$
@@ -404,10 +399,9 @@ reference="fig:schema_er_r"} rappresenta le modifiche espresse in questa
 sezione applicate al precedente schema della Figura
 [1](#fig:schema_er){reference-type="ref" reference="fig:schema_er"}.
 
-<figure id="fig:schema_er_r" data-latex-placement="htbp">
-<img src="./Schema_ER_ristrutturato.png" style="width:100.0%" />
-<figcaption>Schema E-R ristrutturato.</figcaption>
-</figure>
+![Schema E-R
+ristrutturato.](Schema_ER_ristrutturato.png){#fig:schema_er_r
+width="100%"}
 
 ## Schema Relazionale
 
@@ -417,51 +411,51 @@ L'asterisco dopo il nome degli attributi indica quelli che ammettono
 valori nulli, quelli sottolineati invece sono le chiavi primarie della
 tabella.
 
-- **Utente**([ID]{.underline}, Nome, Cognome, Email)
+-   **Utente**([ID]{.underline}, Nome, Cognome, Email)
 
-- **Conto**([ID]{.underline}, Nome, Saldo, IBAN\*, Nome_Banca\*)
+-   **Conto**([ID]{.underline}, Nome, Saldo, IBAN\*, Nome_Banca\*)
 
-- **Possiede**([Utente_ID, Conto_ID]{.underline}, Livello_Accesso)
+-   **Possiede**([Utente_ID, Conto_ID]{.underline}, Livello_Accesso)
 
-  - Possiede.Utente_ID $\rightarrow$ Utente.ID
+    -   Possiede.Utente_ID $\rightarrow$ Utente.ID
 
-  - Possiede.Conto_ID $\rightarrow$ Conto.ID
+    -   Possiede.Conto_ID $\rightarrow$ Conto.ID
 
-- **Categoria**([Utente_ID, Nome]{.underline})
+-   **Categoria**([Utente_ID, Nome]{.underline})
 
-  - Categoria.Utente_ID $\rightarrow$ Utente.ID
+    -   Categoria.Utente_ID $\rightarrow$ Utente.ID
 
-- **Budget**([Categoria_Utente, Categoria_Nome]{.underline}, Data_Fine,
-  Target, Frequenza)
+-   **Budget**([Categoria_Utente, Categoria_Nome]{.underline},
+    Data_Fine, Target, Frequenza)
 
-  - Budget.(Categoria_Utente, Categoria_Nome) $\rightarrow$
-    Categoria.(Utente_ID, Nome)
+    -   Budget.(Categoria_Utente, Categoria_Nome) $\rightarrow$
+        Categoria.(Utente_ID, Nome)
 
-- **Avviso**([Budget_Utente, Budget_Categoria]{.underline}, Tipologia,
-  Soglia)
+-   **Avviso**([Budget_Utente, Budget_Categoria]{.underline}, Tipologia,
+    Soglia)
 
-  - Avviso.(Budget_Utente, Budget_Categoria) $\rightarrow$
-    Budget.(Categoria_Utente, Categoria_Nome)
+    -   Avviso.(Budget_Utente, Budget_Categoria) $\rightarrow$
+        Budget.(Categoria_Utente, Categoria_Nome)
 
-- **Transazione**([ID]{.underline}, Nome, Data, Ora, Importo, Tipologia,
-  Conto_ID, Categoria_Utente, Categoria_Nome)
+-   **Transazione**([ID]{.underline}, Nome, Data, Ora, Importo,
+    Tipologia, Conto_ID, Categoria_Utente, Categoria_Nome)
 
-  - Transazione.Conto_ID $\rightarrow$ Conto.ID
+    -   Transazione.Conto_ID $\rightarrow$ Conto.ID
 
-  - Transazione.(Categoria_Utente, Categoria_Nome) $\rightarrow$
-    Categoria.(Utente_ID, Nome)
+    -   Transazione.(Categoria_Utente, Categoria_Nome) $\rightarrow$
+        Categoria.(Utente_ID, Nome)
 
-- **Trasferimento**([Transazione_ID]{.underline}, Commissione,
-  Conto_Destinazione_ID)
+-   **Trasferimento**([Transazione_ID]{.underline}, Commissione,
+    Conto_Destinazione_ID)
 
-  - Trasferimento.Transazione_ID $\rightarrow$ Transazione.ID
+    -   Trasferimento.Transazione_ID $\rightarrow$ Transazione.ID
 
-  - Trasferimento.Conto_Destinazione_ID $\rightarrow$ Conto.ID
+    -   Trasferimento.Conto_Destinazione_ID $\rightarrow$ Conto.ID
 
-- **Ricorrente**([Transazione_ID]{.underline}, Frequenza,
-  Fine_Ricorrenza)
+-   **Ricorrente**([Transazione_ID]{.underline}, Frequenza,
+    Fine_Ricorrenza)
 
-  - Ricorrente.Transazione_ID $\rightarrow$ Transazione.ID
+    -   Ricorrente.Transazione_ID $\rightarrow$ Transazione.ID
 
 # Implementazione
 
@@ -490,9 +484,7 @@ GROUP BY U.Nome, U.Cognome;
 
 Di seguito un'estratto dell'output:
 
-<figure data-latex-placement="htbp">
-<img src="./output_query1.png" style="width:65.0%" />
-</figure>
+![image](output_query1.png){width="65%"}
 
 **Query 2** Calcolare il patrimonio totale per utente (consideriamo
 parte del patrimonio dell'utente i conti in cui ha un livello di accesso
@@ -510,9 +502,7 @@ ORDER BY Patrimonio_Totale DESC;
 
 Di seguito un'estratto dell'output:
 
-<figure data-latex-placement="htbp">
-<img src="./output_query2.png" style="width:65.0%" />
-</figure>
+![image](output_query2.png){width="65%"}
 
 **Query 3** Elencare tutte le uscite ricorrenti, con la relativa
 frequenza, per ogni utente.
@@ -529,9 +519,7 @@ ORDER BY T.Categoria_Utente ASC;
 
 Di seguito un'estratto dell'output:
 
-<figure data-latex-placement="htbp">
-<img src="./output_query3.png" style="width:75.0%" />
-</figure>
+![image](output_query3.png){width="75%"}
 
 **Query 4** Elencare i conti co-intestati e il loro bilancio.
 
@@ -546,9 +534,7 @@ ORDER BY C.Saldo DESC;
 
 Di seguito un'estratto dell'output:
 
-<figure data-latex-placement="htbp">
-<img src="./output_query4.png" style="width:65.0%" />
-</figure>
+![image](output_query4.png){width="65%"}
 
 **Query 5** Elencare le categorie per cui un utente ha superato il
 budget mensile fissato a settembre 2026.
@@ -571,9 +557,7 @@ HAVING SUM(T.Importo) > B.Target;
 
 Di seguito un'estratto dell'output:
 
-<figure data-latex-placement="htbp">
-<img src="./output_query5.png" style="width:65.0%" />
-</figure>
+![image](output_query5.png){width="65%"}
 
 ## Definizione degli Indici
 
