@@ -1,7 +1,5 @@
 # Relazione
 
-![Pagina 1](docs/Relazione_basi_2-01.png)
-![Pagina 2](docs/Relazione_basi_2-02.png)
 ![Pagina 3](docs/Relazione_basi_2-03.png)
 ![Pagina 4](docs/Relazione_basi_2-04.png)
 ![Pagina 5](docs/Relazione_basi_2-05.png)
